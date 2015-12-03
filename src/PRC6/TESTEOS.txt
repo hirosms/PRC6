@@ -1,0 +1,17 @@
+jPanel1.setVisible(true);
+        jPanel1.removeAll();
+        ChartPanel panel;
+        JFreeChart chart = null;
+        DefaultPieDataset data = new DefaultPieDataset ();
+           int  tmp = 0;
+            for(int i = 0; i < 12; i++)
+            {
+                tmp +=1;
+                data.setValue(Integer.toString(tmp),dataset.tmax.get(i));
+
+            }
+            panel = new ChartPanel(chart);
+            panel.setBounds(5, 5, 430, 340);
+            panel.repaint();
+            jPanel1.add(panel);
+            jPanel1.updateUI();
