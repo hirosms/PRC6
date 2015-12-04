@@ -32,7 +32,7 @@ public class Graficos implements ActionListener {
     }
         
         
-        public void PieGraphF( ArrayList <Float> d,int pos, String s, String y, javax.swing.JPanel Pan)
+        public void PieGraphF( ArrayList <Float> d,int pos, String s, String y, javax.swing.JPanel Pan, String p)
         {   
             Pan.removeAll();
             // Fuente de Datos
@@ -46,7 +46,7 @@ public class Graficos implements ActionListener {
 
             // Creando el Grafico
             JFreeChart chart = ChartFactory.createPieChart(
-             "Gráfico de "+s+" para el año "+y, 
+             "Gráfico de "+s+" para el año "+y+" en "+p, 
              data, 
              true, 
              true, 
@@ -65,7 +65,7 @@ public class Graficos implements ActionListener {
             
         }
         
-        public void PieGraphI( ArrayList <Integer> d,int pos, String s, String y, javax.swing.JPanel Pan)
+        public void PieGraphI( ArrayList <Integer> d,int pos, String s, String y, javax.swing.JPanel Pan,String p)
         {   
             Pan.removeAll();
              //System.out.println("Estoy EN PIEGRAPH");
@@ -83,7 +83,7 @@ public class Graficos implements ActionListener {
 
             // Creando el Grafico
             JFreeChart chart = ChartFactory.createPieChart(
-             "Gráfico de "+s+" para el año "+y, 
+             "Gráfico de "+s+" para el año "+y+" en "+p, 
              data, 
              true, 
              true, 
@@ -102,31 +102,36 @@ public class Graficos implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        Object fuente = e.getSource();
+        
+        if (fuente == das.getPlace())
+            JOptionPane.showMessageDialog(null, "Cambio registrado en el Sitio");
+        else
+            if (fuente == das.getYear())
+                JOptionPane.showMessageDialog(null, "Cambio registrado en el Año");
+            else
+                if (fuente == das.getjComboBox1())
+                    JOptionPane.showMessageDialog(null, "Cambio registrado en el Grafico");
+        
         int n = Integer.parseInt(das.getYear().getSelectedItem().toString());
         int ini = das.get_pos(n);
         
-        JOptionPane.showMessageDialog(null, "Hubo una accion en el boton.");
-        /*das.getDataset().getTmax().stream().forEach((i) -> {
-            System.out.print(i);
-            });
-        */
         if(das.getjComboBox1().getSelectedIndex() == 0)
-            das.graph.PieGraphF(das.getDataset().getTmax(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2());
+            das.graph.PieGraphF(das.getDataset().getTmax(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2(),das.getPlace().getSelectedItem().toString());
         else
             if(das.getjComboBox1().getSelectedIndex() == 1)
-                das.graph.PieGraphF(das.getDataset().getTmin(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2());
+                das.graph.PieGraphF(das.getDataset().getTmin(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2(), das.getPlace().getSelectedItem().toString());
             else
                 if(das.getjComboBox1().getSelectedIndex() == 2)
-                    das.graph.PieGraphI(das.getDataset().getAfdays(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2());
+                    das.graph.PieGraphI(das.getDataset().getAfdays(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2(), das.getPlace().getSelectedItem().toString());
                 else
                     if(das.getjComboBox1().getSelectedIndex() == 3)
-                        das.graph.PieGraphF(das.getDataset().getRain(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2());
+                        das.graph.PieGraphF(das.getDataset().getRain(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2(), das.getPlace().getSelectedItem().toString());
                     else
                         if(das.getjComboBox1().getSelectedIndex() == 4)
-                            das.graph.PieGraphF(das.getDataset().getSun(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2());
-        //this.PieGraphF(d.tmax, 0, "TMAX", "1920", jPanel2);
-        //graph.PieGraphF(d.dataset.tmax, ini, But_tmax.getText(), ""+n);
-        
+                            das.graph.PieGraphF(das.getDataset().getSun(),ini,das.getjComboBox1().getSelectedItem().toString(), das.getYear().getSelectedItem().toString(), das.getjPanel2(), das.getPlace().getSelectedItem().toString());
+          
     }
         
 }
